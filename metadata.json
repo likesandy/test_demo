@@ -1,0 +1,5 @@
+{
+  "name": "AI Task Assistant Sidebar",
+  "description": "A sidebar popup for executing and tracking AI tasks with collapsible logs and interactive prompts.",
+  "requestFramePermissions": []
+}
