@@ -12,7 +12,7 @@ export interface TaskAction {
     id: string;
     text: string;
     primary?: boolean;
-    icon?: 'check';
+    icon?: 'check' | 'minus';
   }[];
 }
 

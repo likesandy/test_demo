@@ -1,48 +1,51 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { Minus, X, Send, CheckCircle2, Bot } from 'lucide-react';
+import { Leaf, X, Send, CheckCircle2, Bot } from 'lucide-react';
 import { TaskBlock } from './TaskBlock';
 import { Task } from '../types';
 
 // Mock data to match the provided design
 const initialMockTask: Task = {
   id: '1',
-  prompt: '帮我打开抖音，并搜索可爱狗狗',
+  prompt: '请帮我打开抖音，并搜索可爱狗狗',
   initialResponse: '好的，我来帮您打开抖音并搜索可爱狗狗。',
   status: 'completed',
   createdAt: Date.now(),
   logs: [
-    { id: 'l1', text: '【思考】现在我将为您打开抖音的网页端，我将开始调用我的工具来帮助本次任务执行...', type: 'thought' },
-    { id: 'l2', text: '【抖音】检测到搜索结果开始加载，切换到下一个平台', type: 'info' },
+    { id: 'l1', text: '【思考】现在我将为你打开抖音的网页端，我将开始调用我的工具来帮助你完成本次任务的执行......', type: 'thought' },
+    { id: 'l2', text: '【抖音】监测到搜索结果开始加载，切换到下一个平台', type: 'info' },
     { id: 'l3', text: '【抖音】打开页面超时', type: 'error' },
     { id: 'l4', text: '【抖音】打开页面超时', type: 'error' },
     { id: 'l5', text: '【抖音】采集任务已完成', type: 'success' },
-    { id: 'l6', text: '检测到搜索结果开始加载，切换到下一个平台', type: 'info' },
+    { id: 'l6', text: '监测到搜索结果开始加载，切换到下一个平台', type: 'info' },
   ],
   action: {
     message: '小红书提示您需要先登录才能继续搜索',
     buttons: [
-      { id: 'b1', text: '我已经登录', primary: true, icon: 'check' },
-      { id: 'b2', text: '跳过小红书' }
+      { id: 'b1', text: '我已经登陆', primary: true, icon: 'check' },
+      { id: 'b2', text: '跳过小红书', icon: 'minus' }
     ]
   },
   result: (
-    <div className="flex flex-col gap-2">
-      <div className="font-medium text-[15px] text-gray-900">批量搜索结果</div>
-      <div className="text-[#22c55e] flex items-center gap-1.5 text-[14px] font-medium">
-        <CheckCircle2 className="w-4 h-4" /> 成功获取回复的平台：
-      </div>
-      <div className="flex items-center gap-2 text-[14px] text-gray-800">
-        <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-          <Bot className="w-3 h-3" />
+    <div className="flex flex-col gap-3">
+      <div className="text-[14px] text-gray-800">批量搜索结果：</div>
+      
+      <div className="flex flex-col gap-1">
+        <div className="font-bold text-[15px] text-gray-900">一、豆包 (doubao)</div>
+        <div className="text-[14px] text-gray-600 leading-relaxed">
+          根据标题“小狗怎么还会阴阳怪气啊 #修狗 #小花花的每一天”及话题标签“修狗”“小花花的每一天”，可推测作品核心内容为：
+          <span className="text-[#22c55e]">通过拟人化手法展现小狗的“阴阳怪气”行为</span>
+          ，例如用动作、表情或声音模仿人类的“吐槽”“调侃”等日常互动场景（如主人叫小狗吃饭时故意拖延、对主人的行为“翻白眼”等）。
         </div>
-        豆包 (doubao)
       </div>
-      <div className="text-[14px] text-gray-700 mt-1">今日热点可爱狗狗相关内容：</div>
-      <ol className="list-decimal pl-5 space-y-1.5 text-[14px] text-gray-700 marker:text-gray-500">
-        <li>长沙“狗狗团伙”药店偷药事件 - 两只柯基分工明确，一只打掩护吸引店员注意，另一只仅用3秒精准叼走一盒咽炎片，被网友笑称“教科书级配合”。</li>
-        <li>警犬执勤被摸内心戏 - 话题 #警犬明明看见人类摸我了# 登上微博热搜，阅读量高达440万。警犬被摸得一脸享受却强忍本能故作严肃，反差萌让网友直呼“根本拒绝不了”。</li>
-        <li>三丽鸥「玉桂狗」愚人节企划 - 今日恰逢愚人节，三丽鸥官方发布玉桂狗新企划「长大后的我们，会变成什么样呢？」，可爱形象引发二次元圈热议。</li>
-      </ol>
+
+      <div className="flex flex-col gap-1 mt-2">
+        <div className="font-bold text-[15px] text-gray-900">二、Deepseek</div>
+        <div className="text-[14px] text-gray-600 leading-relaxed space-y-1">
+          <div><span className="text-[#22c55e]">1. 拟人化萌宠行为：</span>标题中“阴阳怪气”是核心亮点，将小狗行为与人类性格特征结合，赋予宠物“人性化”特质，符合用户对“萌宠有灵”的情感期待，易引发“可爱+有趣”的双重共鸣。</div>
+          <div><span className="text-[#22c55e]">2. 日常真实感：</span>账号名称“小花花的每一天”及话题“小花花的每一天”暗示内容为宠物日常生活片段记录，真实、贴近用户的养宠体验，降低距离感，增强信任感。</div>
+          <div><span className="text-[#22c55e]">3. 网络用语适配性：</span>话题标签“修狗”（网络对小狗的亲昵称呼）精准匹配年轻用户语言习惯，提升内容在同类兴趣群体中的传播效率。</div>
+        </div>
+      </div>
     </div>
   )
 };
@@ -172,11 +175,11 @@ export function Sidebar() {
     <div className="fixed right-4 top-4 bottom-4 w-[400px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-100 z-50 font-sans">
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-4 border-b border-gray-50 bg-white/80 backdrop-blur-sm z-10">
-        <h2 className="text-[16px] font-medium text-gray-800">小豆芽助手</h2>
+        <div className="flex items-center gap-2">
+          <Leaf className="w-4 h-4 text-green-500 fill-green-500" />
+          <h2 className="text-[15px] font-medium text-gray-800">小豆芽助手</h2>
+        </div>
         <div className="flex items-center gap-3 text-gray-400">
-          <button className="hover:text-gray-600 transition-colors">
-            <Minus className="w-4 h-4" />
-          </button>
           <button className="hover:text-gray-600 transition-colors">
             <X className="w-4 h-4" />
           </button>
